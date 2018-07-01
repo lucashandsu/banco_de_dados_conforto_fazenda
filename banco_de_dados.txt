@@ -1,0 +1,59 @@
+• Tabela lote:
+
+CREATE TABLE public."Lote"
+(
+    "ID" integer NOT NULL,
+    "Nome" character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT "PK_ID_lote" PRIMARY KEY ("ID")
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public."Lote"
+    OWNER to postgres;
+
+• Tabela animal:
+
+CREATE TABLE public."Animal"
+(
+    "ID_do_animal" integer NOT NULL,
+    "Nome_do_animal" character varying(50) COLLATE pg_catalog."default",
+    "ID_do_lote" integer NOT NULL,
+    CONSTRAINT "FK_ID_animal_lote" FOREIGN KEY ("ID_do_lote")
+        REFERENCES public."Lote" ("ID") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public."Animal"
+    OWNER to postgres;
+
+• Tabela consumo:
+
+CREATE TABLE public."Consumo"
+(
+    "ID" integer NOT NULL,
+    "Data" character varying(10) COLLATE pg_catalog."default" NOT NULL,
+    "ID_do_lote" integer NOT NULL,
+    "Volume_de_animais" integer NOT NULL,
+    "Dieta_em_kg" integer NOT NULL,
+    "Sobra_em_kg" integer NOT NULL,
+    "Percentual_da_sobra" integer NOT NULL,
+    CONSTRAINT "FK_ID_consumo_lote" FOREIGN KEY ("ID_do_lote")
+        REFERENCES public."Lote" ("ID") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public."Consumo"
+    OWNER to postgres;
